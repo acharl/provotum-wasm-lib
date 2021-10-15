@@ -39,6 +39,7 @@ pub use wasm_bindings::{
     spend_description::*,
     spending_key::*,
     viewing_key::*,
+    keygen::*,
 };
 
 use crate::state::State;
@@ -49,3 +50,6 @@ mod key;
 mod transaction;
 
 mod state;
+
+
+

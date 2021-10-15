@@ -13,6 +13,8 @@ import { __wasm__bindingSignature } from './internal/transaction/binding-signatu
 import { __wasm__verifyCmu } from './internal/transaction/commitment'
 import { __wasm__merkleHashForDepth } from './internal/transaction/merkle-tree'
 import { __wasm__computeNf } from './internal/transaction/nullifier'
+import { __wasm__keygen } from './internal/keygen'
+
 import {
   __wasm__deriveEpkFromEsk,
   __wasm__outputDescriptionFromXfvk,
@@ -21,6 +23,8 @@ import {
 import { __wasm__spendDescriptionFromXsk, __wasm__signSpendDescriptionWithXsk } from './internal/transaction/spend-description'
 import { WasmSapling } from './internal/types'
 import { rejectPromise } from './internal/utils'
+
+
 import {
   SaplingOutputDescription,
   SaplingPartialOutputDescription,
@@ -293,6 +297,16 @@ export async function createBindingSignature(
     return rejectPromise('createBindingSignature', error)
   }
 }
+
+export async function keygen(sk_as_string: string): Promise<number> {
+  try {
+    const sapling: WasmSapling = await saplingPromise
+    return __wasm__keygen(sk_as_string, sapling)
+  } catch (error) {
+    return rejectPromise('keygenError', error)
+  }
+}
+
 
 /**
  * Prepare an unsigned sapling spend description

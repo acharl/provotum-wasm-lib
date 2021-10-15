@@ -11,3 +11,6 @@ pub mod signature;
 pub mod spend_description;
 pub mod spending_key;
 pub mod viewing_key;
+pub mod keygen;
+pub mod helper;
+pub mod types;

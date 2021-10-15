@@ -10,15 +10,7 @@ crate-type = ["cdylib", "rlib", "staticlib"]
 [package.metadata.wasm-pack.profile.release]
 wasm-opt = ["-Oz", "--enable-mutable-globals"]
 
-[features]
-wasm_bindings = [
-    "bellman/groth16",
-    "console_error_panic_hook",
-    "getrandom/wasm-bindgen",
-    "wasm-bindgen",
-    "web-sys",
-    "zcash_proofs/local-prover"
-]
+
 
 c_bindings = ["bellman/default", "zcash_proofs/default", "libc", "log"]
 
@@ -42,8 +34,31 @@ zcash_proofs = { version = "0.5.0", default-features = false }
 console_error_panic_hook = { version = "0.1.6", optional = true }
 libc = { version = "0.2.86", optional = true }
 log = { version = "0.4.14", optional = true }
-wasm-bindgen = { version = "0.2.69", optional = true }
+wasm-bindgen = { version = "0.2.69", optional = true, features = ["serde-serialize"] }
 web-sys = { version = "0.3.46", features = ["console"], optional = true }
+
+num-bigint = { version = "0.4.2", default-features = false, features = ["rand", "serde"] }
+num-traits = { version = "^0.2", default-features = false }
+blake2 = { version = "^0.9", default-features = false }
+criterion = { version = "^0.3", default-features = false, optional = true }
+serde = { version = "1", default-features = false, features = ["derive"] }
+serde_json = {version = "1.0"}
+rand = { version = "0.8.4", optional = true }
+
+
+[features]
+wasm_bindings = [
+    "bellman/groth16",
+    "console_error_panic_hook",
+    "getrandom/wasm-bindgen",
+    "wasm-bindgen",
+    "web-sys",
+    "zcash_proofs/local-prover"
+]
+std = [
+    'num-bigint/std',
+    'serde/std',
+]
 
 [dev-dependencies]
 hex = "0.4.2"
