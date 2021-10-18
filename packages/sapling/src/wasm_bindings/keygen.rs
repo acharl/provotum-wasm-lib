@@ -2,14 +2,12 @@
 extern crate console_error_panic_hook;
 
 use wasm_bindgen::prelude::*;
-use crate::wasm_bindings::init::init_lib;
 use crate::crypto::{Helper, Random, KeyGenerationProof, PublicKeyShare};
 use hex_literal::hex;
 
 
 #[wasm_bindgen(catch, js_name = "keygen")]
 pub fn wasm_keygen(sk_as_string: String) -> Vec<JsValue> {
-    init_lib();
     let (params, sk, pk) = Helper::setup_lg_system_with_sk(sk_as_string.as_bytes());
    
 
