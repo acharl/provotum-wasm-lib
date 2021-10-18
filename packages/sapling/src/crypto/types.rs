@@ -1,12 +1,11 @@
-use num_bigint::{BigUint};
 use core::ops::{Div, Sub};
-use num_traits::One;
+use num_bigint::{BigUint};
+use num_traits::{One};
 
 use serde::{Serialize, Deserialize};
 
-
 #[derive(Clone, Eq, PartialEq, Debug, Hash, Serialize, Deserialize)]
-// #[cfg_attr(feature = "std", derive(Serialize, Deserialize))]
+
 pub struct ElGamalParams {
     // modulus: p
     pub p: BigUint,
@@ -27,7 +26,6 @@ impl ElGamalParams {
 }
 
 #[derive(Clone, PartialEq, Eq, Debug, Serialize, Deserialize)]
-// #[cfg_attr(feature = "std", derive(Serialize, Deserialize))]
 pub struct PublicKey {
     // system parameters (p, g)
     pub params: ElGamalParams,
@@ -71,4 +69,3 @@ pub struct PrivateKey {
     // - x: a random value (x ∈ Zq)
     pub x: BigUint,
 }
-

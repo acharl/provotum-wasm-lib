@@ -1,4 +1,4 @@
-use crate::wasm_bindings::types::{ElGamalParams, PrivateKey, PublicKey};
+use crate::crypto::types::{ElGamalParams, PrivateKey, PublicKey};
 use num_bigint::BigUint;
 use num_traits::One;
 

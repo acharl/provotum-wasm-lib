@@ -15,7 +15,7 @@ pub use c_bindings::{
     output_description::*,
     payment_address::*,
     proving_context::*,
-    rand::*,
+    randsap::*,
     signature::*,
     spend_description::*,
     spending_key::*,
@@ -34,7 +34,7 @@ pub use wasm_bindings::{
     output_description::*,
     payment_address::*,
     proving_context::*,
-    rand::*,
+    randsap::*,
     signature::*,
     spend_description::*,
     spending_key::*,
@@ -48,6 +48,7 @@ mod address;
 mod common;
 mod key;
 mod transaction;
+mod crypto;
 
 mod state;
 

@@ -24,7 +24,6 @@ funty = "=1.1.0"
 getrandom = "=0.1.1"
 group = "0.8.0"
 jubjub = "0.5.1"
-rand_core = "0.5.1"
 regex = "1.4.2"
 subtle = "2.3.0"
 wyz = "0.2.0"
@@ -43,7 +42,7 @@ blake2 = { version = "^0.9", default-features = false }
 criterion = { version = "^0.3", default-features = false, optional = true }
 serde = { version = "1", default-features = false, features = ["derive"] }
 serde_json = {version = "1.0"}
-rand = { version = "0.8.4", optional = true }
+rand = { version = "0.8.4", optional = true}
 
 
 [features]
@@ -57,9 +56,13 @@ wasm_bindings = [
 ]
 std = [
     'num-bigint/std',
+    'num-traits/std',
     'serde/std',
+    'rand/std'
 ]
+
 
 [dev-dependencies]
 hex = "0.4.2"
 wasm-bindgen-test = "0.3.19"
+rand = { version = "^0.7" }
