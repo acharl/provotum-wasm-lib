@@ -1,6 +1,7 @@
 use crate::crypto::types::{ElGamalParams, PrivateKey, PublicKey};
 use num_bigint::BigUint;
 use num_traits::One;
+use blake2::{Blake2b, Digest};
 
 pub struct Helper;
 
@@ -47,5 +48,21 @@ impl Helper {
         g != q && g != &one && (g.modpow(q, p) == one)
     }
 
+
+    pub fn hash_key_gen_proof_inputs(
+        id: &[u8],
+        constant: &str,
+        h: &BigUint,
+        b: &BigUint,
+    ) -> BigUint {
+        let hasher = Blake2b::new();
+        let hash = hasher
+            .chain(id)
+            .chain(constant.as_bytes())
+            .chain(h.to_bytes_be())
+            .chain(b.to_bytes_be())
+            .finalize();
+        BigUint::from_bytes_be(&hash)
+    }
    
 }

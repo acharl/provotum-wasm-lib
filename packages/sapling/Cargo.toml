@@ -15,6 +15,11 @@ wasm-opt = ["-Oz", "--enable-mutable-globals"]
 c_bindings = ["bellman/default", "zcash_proofs/default", "libc", "log"]
 
 [dependencies]
+rand_core = "0.5.1"
+codec = { package = "parity-scale-codec", version = "1.3.6", features = ["derive"] } 
+hex-literal = "0.3.3"
+
+
 bellman = { version = "0.8.1", default-features = false }
 blake2b_simd = "0.5.11"
 blake2s_simd = "0.5.11"

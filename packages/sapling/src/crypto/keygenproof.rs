@@ -1,7 +1,9 @@
-use crate::{
+use crate::crypto::{
     helper::Helper,
     types::{ElGamalParams, ModuloOperations},
 };
+
+
 use num_bigint::BigUint;
 
 #[derive(Clone, Eq, PartialEq, Debug, Hash)]

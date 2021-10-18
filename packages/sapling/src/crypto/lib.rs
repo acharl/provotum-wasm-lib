@@ -32,4 +32,4 @@ pub mod types;
 
 #[allow(clippy::many_single_char_names)]
 #[macro_use]
-pub mod proofs;
+pub mod keygenproof;
