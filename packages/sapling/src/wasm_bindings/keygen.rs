@@ -6,9 +6,9 @@ use crate::crypto::{Helper, Random, KeyGenerationProof, PublicKeyShare};
 use hex_literal::hex;
 
 
-#[wasm_bindgen(catch, js_name = "keygen")]
-pub fn wasm_keygen(sk_as_string: String) -> JsValue {
-    let (params, _sk, _pk) = Helper::setup_lg_system_with_sk(sk_as_string.as_bytes());
+#[wasm_bindgen(catch, js_name = "setupElgamal")]
+pub fn wasm_setup_elgamal(sk_as_string: String) -> Vec<JsValue> {
+    let (params, sk, pk) = Helper::setup_lg_system_with_sk(sk_as_string.as_bytes());
    
     /*
     * There seems to be an issue with RNG on the side of WASM
@@ -21,12 +21,12 @@ pub fn wasm_keygen(sk_as_string: String) -> JsValue {
     *   4) continue with KeyGenerationProof::generate(
     */
 
-   JsValue::from_serde(&params.q().to_str_radix(16)).unwrap()
+    vec![JsValue::from_serde(&params.q().to_str_radix(16)).unwrap(), JsValue::from_serde(&sk).unwrap(), JsValue::from_serde(&pk).unwrap()]
 }
 
 
 #[wasm_bindgen(catch, js_name = "keygen_first")]
-pub fn wasm_keygen_second(sk_as_string: String) -> Vec<JsValue> {
+pub fn wasm_keygen(sk_as_string: String) -> Vec<JsValue> {
     let (params, sk, pk) = Helper::setup_lg_system_with_sk(sk_as_string.as_bytes());
    
     /*

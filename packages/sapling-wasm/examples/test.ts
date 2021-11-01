@@ -6,7 +6,7 @@ import crypto = require('crypto')
 const run = async() => {
 try {
     const secretKey = '1000008'
-    const q = await provotumAirGap.keygen(secretKey)
+    const [q, sk, pk] = await provotumAirGap.setupElgamal(secretKey)
 
     const rawByteSize = Buffer.byteLength(q.toString(), 'utf8')
     const byteSize = new BN(rawByteSize, 10)
@@ -15,7 +15,6 @@ try {
     const randomValue = getSecureRandomValue(targetValue, byteSize)
 
 
-    console.log(randomValue.lt(targetValue))
 } catch (error) {
     console.log(error)
  }
