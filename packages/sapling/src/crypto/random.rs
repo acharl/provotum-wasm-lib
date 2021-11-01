@@ -28,7 +28,7 @@ impl Random {
         
 
     
-        BigUint::new(vec![108])
+        BigUint::new(vec![1230908])
     }
     
 }
