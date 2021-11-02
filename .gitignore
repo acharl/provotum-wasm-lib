@@ -1,0 +1,13 @@
+.idea/
+.idea/**/*
+*.tmp
+
+target
+**/*.rs.bk
+Cargo.lock
+pkg/
+
+node_modules
+
+.build
+.swiftpm
