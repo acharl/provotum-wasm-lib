@@ -7,7 +7,6 @@ use crate::crypto::keygenproof::KeyGenerationProof;
 use serde::{Serialize, Deserialize};
 
 #[derive(Clone, Eq, PartialEq, Debug, Hash, Serialize, Deserialize)]
-
 pub struct ElGamalParams {
     // modulus: p
     pub p: BigUint,

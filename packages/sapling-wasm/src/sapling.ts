@@ -1,5 +1,5 @@
 
-import { __wasm__setupElgamal } from './internal/keygen'
+import { __wasm__keygen, __wasm__setupElgamal } from './internal/keygen'
 import { WasmSapling } from './internal/types'
 import { rejectPromise } from './internal/utils'
 
@@ -18,3 +18,13 @@ const saplingPromise: Promise<WasmSapling> = import('../pkg')
     }
   }
    
+
+
+  export async function keygen(r: any, params: any, sk: any, pk: any): Promise<any[]> {
+    try {
+      const sapling: WasmSapling = await saplingPromise
+      return __wasm__keygen(r,params, sk, pk, sapling)
+    } catch (error) {
+      return rejectPromise('keygenError', error)
+    }
+  }
