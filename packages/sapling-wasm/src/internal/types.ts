@@ -1,3 +1,3 @@
-import type * as sapling from '../../pkg'
+import type * as provotum from '../../pkg'
 
-export type WasmSapling = typeof sapling
+export type WasmProvotum = typeof provotum

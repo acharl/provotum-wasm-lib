@@ -1,17 +1,17 @@
-import { WasmSapling } from "./types"
+import { WasmProvotum } from "./types"
 
 export function __wasm__setupElgamal(
     sk_as_string: string, 
-    sapling: WasmSapling, 
+    provotum: WasmProvotum, 
 ): any {
-  return sapling.setupElgamal(sk_as_string)
+  return provotum.setupElgamal(sk_as_string)
 }
 
 
 
 export function __wasm__keygen(
   r: any, params: any, sk: any, pk: any,
-  sapling: WasmSapling, 
+  provotum: WasmProvotum, 
 ): any {
-return sapling.keygen(r, params, sk, pk)
+return provotum.keygen(r, params, sk, pk)
 }
