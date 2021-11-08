@@ -1,7 +1,7 @@
 {
   "name": "provotum-wasm-lib",
   "author": "Amadeo Charlé",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "publishConfig": {
     "access": "public"
   },
@@ -14,5 +14,8 @@
   "scripts": {
     "build": "rm -rf dist && npx webpack --mode=development && npm link ./dist",
     "build:prod": "rm -rf dist && npx webpack --mode=production"
+  },
+  "devDependencies": {
+    "webpack-cli": "^4.9.1"
   }
 }
