@@ -64,7 +64,7 @@ pub fn wasm_decrypt(_r: &JsValue, _params: &JsValue, _sk: &JsValue, _pk: &JsValu
     * TODO: add partial_decrypt_a from Moritz' code in 
     * an appropriate place such as, so that 
     * we can actually call it here. Probably it would make sense 
-    * to create a new file and paste the contents of `encryption.rs`
+    * to create a new file and paste the contents of `encryption.rs` (until line 354)
     * from Moritz' code in there, which includes partial_decrypt_a()
     **/
 
