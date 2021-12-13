@@ -47,7 +47,12 @@ pub fn wasm_decrypt(_r: &JsValue, _params: &JsValue, _sk: &JsValue, _pk: &JsValu
     let nr_of_shuffles = 3;
 
     /*
-    * TODO: wasm_decrypt should take `encryptions` as an input
+    * TODO: wasm_decrypt should take `encryptions` as an input (
+    * see the txt file I sent via whatsapp earlier today. That's
+    * exactly what `encryptions` looks like when we pass it into
+    * the function. 
+    * The idea is that we fetch them from the PBB via the API from the Wallet
+    * and then pass them onto the Vault from which `wasm_decrypt()` is called 
     **/
 
     let encryptions: Vec<Cipher> = get_ciphers(&client, topic_id.clone(), nr_of_shuffles).await?;
