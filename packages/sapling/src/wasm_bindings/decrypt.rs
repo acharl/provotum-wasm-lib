@@ -2,7 +2,9 @@ extern crate console_error_panic_hook;
 
 use wasm_bindgen::prelude::*;
 use crate::crypto::{Helper, DecryptionProof, ElGamalParams, PrivateKey, PublicKey};
-
+/*
+*
+**/
 use hex_literal::hex;
 use num_bigint::BigUint;
 use std::str::FromStr;
@@ -13,10 +15,14 @@ pub fn wasm_setup_elgamal(sk_as_string: String) -> Vec<JsValue> {
     vec![JsValue::from_serde(&params.q().to_str_radix(16)).unwrap(), JsValue::from_serde(&params).unwrap(), JsValue::from_serde(&sk).unwrap(), JsValue::from_serde(&pk).unwrap()]
 }
 
+/*
+* TODO: call the function from test.ts with the correct parameters by
+* running `npx ts-node packages/sapling-wasm/examples/test.ts`
+**/
+
 #[wasm_bindgen(catch, js_name = "decrypt")]
 pub fn wasm_decrypt(_r: &JsValue, _params: &JsValue, _sk: &JsValue, _pk: &JsValue) -> JsValue {   
 
-    // create private and public key
     let sk: PrivateKey = _sk.into_serde().unwrap();
     let pk: PublicKey = _pk.into_serde().unwrap();
 
@@ -32,6 +38,11 @@ pub fn wasm_decrypt(_r: &JsValue, _params: &JsValue, _sk: &JsValue, _pk: &JsValu
     let vote_id = vote.as_bytes().to_vec();
     let topic_id = question.as_bytes().to_vec();
     let nr_of_shuffles = 3;
+
+    /*
+    * TODO: wasm_decrypt should take encryptions as an input, so add that as input
+    **/
+
     let encryptions: Vec<Cipher> = get_ciphers(&client, topic_id.clone(), nr_of_shuffles).await?;
     let encryptions: Vec<BigCipher> = Wrapper(encryptions).into();
 
@@ -40,6 +51,15 @@ pub fn wasm_decrypt(_r: &JsValue, _params: &JsValue, _sk: &JsValue, _pk: &JsValu
         .iter()
         .map(|cipher| ElGamal::partial_decrypt_a(cipher, &sk))
         .collect::<Vec<BigUint>>();
+
+    /*
+    * TODO: add partial_decrypt_a from Moritz' code in 
+    * an appropriate place such as, so that 
+    * we can actually call it here. Probably it would make sense 
+    * to create a new file and paste the contents of `encryption.rs`
+    * from Moritz' code in there, which includes partial_decrypt_a()
+    **/
+
 
     // convert the decrypted shares: Vec<BigUint> to Vec<Vec<u8>>
     let shares: Vec<Vec<u8>> = partial_decryptions
@@ -58,6 +78,14 @@ pub fn wasm_decrypt(_r: &JsValue, _params: &JsValue, _sk: &JsValue, _pk: &JsValu
         &sealer_id,
     );
 
+
+    /*
+    * TODO: return the decryption proof
+    * eg. something like 
+    * JsValue::from_serde(&proof).unwrap()
+    **/
+   
+
+
     Ok(())
 }
-//npx ts-node packages/sapling-wasm/examples/test.ts
