@@ -45,5 +45,8 @@
     "hooks": {
       "pre-commit": "pretty-quick --staged"
     }
+  },
+  "dependencies": {
+    "wasm-pack": "^0.10.1"
   }
 }

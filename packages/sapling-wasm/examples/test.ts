@@ -17,9 +17,10 @@ try {
     const r = getSecureRandomValue(targetValue, byteSize)
 
     console.log(r.toString())
+     //call provotumAirGap.decrypt
     const keygen = await provotumAirGap.keygen(r.toString(), params, sk, pk)
     console.log(keygen)
-
+console.log("Hi there")
 } catch (error) {
     console.log(error)
  }
