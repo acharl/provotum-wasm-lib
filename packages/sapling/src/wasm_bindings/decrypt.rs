@@ -42,13 +42,12 @@ pub fn wasm_decrypt(_r: &JsValue, _params: &JsValue, _sk: &JsValue, _pk: &JsValu
 
     let sealer_id: [u8; 32] = hex!("8eaf04151687736326c9fea17e25fc5287613693c912909cb226aa4794f26a48").into();
 
-    // fetch the encrypted votes from chain
     let vote_id = vote.as_bytes().to_vec();
     let topic_id = question.as_bytes().to_vec();
     let nr_of_shuffles = 3;
 
     /*
-    * TODO: wasm_decrypt should take encryptions as an input, so add that as input
+    * TODO: wasm_decrypt should take `encryptions` as an input
     **/
 
     let encryptions: Vec<Cipher> = get_ciphers(&client, topic_id.clone(), nr_of_shuffles).await?;
