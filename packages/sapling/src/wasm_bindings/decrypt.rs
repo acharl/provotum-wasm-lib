@@ -52,7 +52,7 @@ pub fn wasm_decrypt(_r: &JsValue, _params: &JsValue, _sk: &JsValue, _pk: &JsValu
     * exactly what `encryptions` looks like when we pass it into
     * the function. 
     * The idea is that we fetch them from the PBB via the API from the Wallet
-    * and then pass them onto the Vault from which `wasm_decrypt()` is called 
+    * and then pass them onto the Vault from which `wasm_decrypt()` is called ---I think I need help to understand what you mean here
     **/
 
     let encryptions: Vec<Cipher> = get_ciphers(&client, topic_id.clone(), nr_of_shuffles).await?;
@@ -69,7 +69,8 @@ pub fn wasm_decrypt(_r: &JsValue, _params: &JsValue, _sk: &JsValue, _pk: &JsValu
     * an appropriate place such as, so that 
     * we can actually call it here. Probably it would make sense 
     * to create a new file and paste the contents of `encryption.rs` (until line 354)
-    * from Moritz' code in there, which includes partial_decrypt_a()
+    * from Moritz' code in there, which includes partial_decrypt_a() ---DONE I have added the encrypt. and decryption (proof) into crypto
+    * I thought it makes sense to add both, let me know if the seond one is unnecessary
     **/
 
 
@@ -88,16 +89,12 @@ pub fn wasm_decrypt(_r: &JsValue, _params: &JsValue, _sk: &JsValue, _pk: &JsValu
         encryptions,
         partial_decryptions,
         &sealer_id,
-    );
+    };
 
 
     /*
     * TODO: return the decryption proof
     * eg. something like 
-    * `JsValue::from_serde(&proof).unwrap()`
+    * `JsValue::from_serde(&proof).unwrap()` --DONE
     **/
-   
-
-
-    Ok(())
-}
+    JsValue::from_serde(&proof).unwrap()`
