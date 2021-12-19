@@ -1,4 +1,5 @@
 
+import { __wasm__decrypt } from './internal/decrypt'
 import { __wasm__initLib } from './internal/init'
 import { __wasm__keygen, __wasm__setupElgamal } from './internal/keygen'
 import { WasmProvotum } from './internal/types'
@@ -30,7 +31,6 @@ const provotumPromise: Promise<WasmProvotum> = import('../pkg')
   }
    
 
-
   export async function keygen(r: any, params: any, sk: any, pk: any): Promise<any[]> {
     try {
       const provotum: WasmProvotum = await provotumPromise
@@ -41,3 +41,12 @@ const provotumPromise: Promise<WasmProvotum> = import('../pkg')
   }
 
 
+
+  export async function decrypt(encryptions: any, r: any, params: any, sk: any, pk: any): Promise<any[]> {
+    try {
+      const provotum: WasmProvotum = await provotumPromise
+      return __wasm__decrypt(encryptions, r,params, sk, pk, provotum)
+    } catch (error) {
+      return rejectPromise('keygenError', error)
+    }
+  }

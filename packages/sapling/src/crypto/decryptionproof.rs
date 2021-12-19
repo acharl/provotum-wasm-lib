@@ -1,11 +1,12 @@
-use crate::{
+use crate::crypto::{
     helper::Helper,
     types::{Cipher, ElGamalParams, ModuloOperations},
 };
-use alloc::vec::Vec;
+// use alloc::vec::Vec;
 use num_bigint::BigUint;
+use serde::{Serialize, Deserialize};
 
-#[derive(Clone, Eq, PartialEq, Debug, Hash)]
+#[derive(Serialize, Deserialize, Clone, Eq, PartialEq, Debug, Hash)]
 pub struct DecryptionProof {
     pub challenge: BigUint,
     pub response: BigUint,

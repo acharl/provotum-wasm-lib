@@ -6,6 +6,20 @@ use codec::{Decode, Encode};
 use crate::crypto::keygenproof::KeyGenerationProof;
 use serde::{Serialize, Deserialize};
 
+#[derive(Serialize, Deserialize, Eq, PartialEq, Clone, Debug, Hash)]
+// #[cfg_attr(feature = "std", derive(Serialize, Deserialize))] // TODO JGD std?
+pub struct Cipher {
+    // a = g^r mod p
+    // - g: generator
+    // - r: random value (r ∈ Zq)
+    pub a: BigUint,
+
+    // b = h^r*g^m mod p
+    // - h: public key
+    // - m: message
+    pub b: BigUint,
+}
+
 #[derive(Clone, Eq, PartialEq, Debug, Hash, Serialize, Deserialize)]
 pub struct ElGamalParams {
     // modulus: p

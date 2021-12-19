@@ -1,4 +1,4 @@
-use crate::crypto::types::{ElGamalParams, PrivateKey, PublicKey};
+use crate::crypto::types::{ElGamalParams, PrivateKey, PublicKey, Cipher};
 use num_bigint::BigUint;
 use num_traits::One;
 use blake2::{Blake2b, Digest};
@@ -65,6 +65,58 @@ impl Helper {
             .chain(b.to_bytes_be())
             .finalize();
         BigUint::from_bytes_be(&hash)
+    }
+
+    pub fn hash_decryption_proof_inputs(
+        id: &[u8],
+        constant: &str,
+        h: &BigUint,
+        vec_e: Vec<Cipher>,
+        vec_c: Vec<BigUint>,
+        vec_t: Vec<BigUint>,
+    ) -> BigUint {
+        let hasher = Blake2b::new();
+        let mut hash = hasher
+            .chain(id)
+            .chain(constant.as_bytes())
+            .chain(h.to_bytes_be());
+
+        let hash_e = Helper::hash_vec_ciphers(vec_e);
+        hash = hash.chain(hash_e);
+
+        let hash_c = Helper::hash_vec_biguints(vec_c);
+        hash = hash.chain(hash_c);
+
+        let hash_vec_t = Helper::hash_vec_biguints(vec_t);
+        hash = hash.chain(hash_vec_t);
+
+        // final byte array of all chained hashes + transform back to BigUint
+        let digest = hash.finalize();
+        BigUint::from_bytes_be(&digest)
+    }
+
+    /// Uses the Blak2 hash function and produces a hash of a vector of BigUints. The result is returned as a Vec<u8>.
+    pub fn hash_vec_ciphers(inputs: Vec<Cipher>) -> Vec<u8> {
+        let mut hash = Blake2b::new();
+
+        for item in inputs.iter() {
+            // transform both parts of Cipher (a,b) to a byte array
+            // chain their hashes
+            hash = hash.chain(item.a.to_bytes_be());
+            hash = hash.chain(item.b.to_bytes_be());
+        }
+
+        hash.finalize().to_vec()
+    }
+
+    /// Uses the Blak2 hash function and produces a hash of a vector of BigUints. The result is returned as a Vec<u8>.
+    pub fn hash_vec_biguints(inputs: Vec<BigUint>) -> Vec<u8> {
+        let mut hash = Blake2b::new();
+
+        for entry in inputs.iter() {
+            hash = hash.chain(entry.to_bytes_be());
+        }
+        hash.finalize().to_vec()
     }
    
 }
