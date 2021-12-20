@@ -31,10 +31,10 @@ const provotumPromise: Promise<WasmProvotum> = import('../pkg')
   }
    
 
-  export async function keygen(r: any, params: any, sk: any, pk: any): Promise<any[]> {
+  export async function keygen(r: any,sealer: any, params: any, sk: any, pk: any): Promise<any[]> {
     try {
       const provotum: WasmProvotum = await provotumPromise
-      return __wasm__keygen(r,params, sk, pk, provotum)
+      return __wasm__keygen(r, sealer,params, sk, pk, provotum)
     } catch (error) {
       return rejectPromise('keygenError', error)
     }
@@ -42,10 +42,10 @@ const provotumPromise: Promise<WasmProvotum> = import('../pkg')
 
 
 
-  export async function decrypt(encryptions: any, r: any, params: any, sk: any, pk: any): Promise<any[]> {
+  export async function decrypt(encryptions: any, sealer: any, r: any, params: any, sk: any, pk: any): Promise<any[]> {
     try {
       const provotum: WasmProvotum = await provotumPromise
-      return __wasm__decrypt(encryptions, r,params, sk, pk, provotum)
+      return __wasm__decrypt(encryptions, sealer, r,params, sk, pk, provotum)
     } catch (error) {
       return rejectPromise('keygenError', error)
     }

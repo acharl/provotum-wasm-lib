@@ -6,6 +6,13 @@ use crate::crypto::{
 use num_bigint::BigUint;
 use serde::{Serialize, Deserialize};
 
+
+#[derive(Serialize, Deserialize, Clone, Eq, PartialEq, Debug, Hash)]
+pub struct HexDecryptionProof {
+    pub challenge: String,
+    pub response: String,
+}
+
 #[derive(Serialize, Deserialize, Clone, Eq, PartialEq, Debug, Hash)]
 pub struct DecryptionProof {
     pub challenge: BigUint,

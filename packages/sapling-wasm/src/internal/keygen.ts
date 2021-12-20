@@ -10,8 +10,8 @@ export function __wasm__setupElgamal(
 
 
 export function __wasm__keygen(
-  r: any, params: any, sk: any, pk: any,
+  r: any, sealer: any, params: any, sk: any, pk: any,
   provotum: WasmProvotum, 
 ): any {
-return provotum.keygen(r, params, sk, pk)
+return provotum.keygen(r,sealer, params, sk, pk)
 }

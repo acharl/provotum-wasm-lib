@@ -10,7 +10,14 @@ use std::str::FromStr;
 
 
 
-
+fn get_sealer(sealer: String) -> [u8; 32] {
+    // get the sealer and sealer_id
+    if sealer == "bob" {
+        return hex!("8eaf04151687736326c9fea17e25fc5287613693c912909cb226aa4794f26a48").into();      
+    } else {
+        return hex!("90b5ab205c6974c9ea841be688864633dc9ca8a357843eeacf2314649965fe22").into();                  
+    };
+}
 #[wasm_bindgen(catch, js_name = "setupElgamal")]
 pub fn wasm_setup_elgamal(sk_as_string: String) -> Vec<JsValue> {
     let (params, sk, pk) = Helper::setup_lg_system_with_sk(sk_as_string.as_bytes());
@@ -19,7 +26,7 @@ pub fn wasm_setup_elgamal(sk_as_string: String) -> Vec<JsValue> {
 
 
 #[wasm_bindgen(catch, js_name = "keygen")]
-pub fn wasm_keygen(_r: &JsValue, _params: &JsValue, _sk: &JsValue, _pk: &JsValue) -> JsValue {   
+pub fn wasm_keygen(_r: &JsValue, _sealer: &JsValue, _params: &JsValue, _sk: &JsValue, _pk: &JsValue) -> JsValue {   
     /*
     * There seems to be an issue with RNG on the side of WASM
     * Perhaps it would anyways make more sense to do the generation on the TS side
@@ -33,14 +40,14 @@ pub fn wasm_keygen(_r: &JsValue, _params: &JsValue, _sk: &JsValue, _pk: &JsValue
 
 
     let string: String = _r.into_serde().unwrap();
+    let sealer: String = _sealer.into_serde().unwrap();
     let r: BigUint = BigUint::from_str(&string).unwrap();
     let params: ElGamalParams = _params.into_serde().unwrap();
     let sk: PrivateKey = _sk.into_serde().unwrap();
     let pk: PublicKey = _pk.into_serde().unwrap();
 
 
-    
-    let sealer_id: [u8; 32] = hex!("8eaf04151687736326c9fea17e25fc5287613693c912909cb226aa4794f26a48").into();
+    let sealer_id: [u8; 32] = get_sealer(sealer);
     // create public key share + proof
     let proof = KeyGenerationProof::generate(&params, &sk.x, &pk.h, &r, &sealer_id);
     let pk_share = PublicKeyShare {
