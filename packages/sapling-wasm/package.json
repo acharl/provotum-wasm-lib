@@ -6,10 +6,10 @@
     "access": "public"
   },
   "files": [
-    "/dist"
+    "dist"
   ],
-  "main": "/dist/index.js",
-  "types": "/dist/index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "sourceMap": true,
   "scripts": {
     "build": "npx webpack --mode=development && npm link ./dist",

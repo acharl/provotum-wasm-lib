@@ -1,12 +1,14 @@
 {
   "name": "provotum-wasm-lib",
   "author": "Amadeo Charlé",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "publishConfig": {
     "access": "public"
   },
   "files": [
-    "/dist"
+    "dist/index.js",
+    "dist/index.d.ts",
+    "dist/internal"
   ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
