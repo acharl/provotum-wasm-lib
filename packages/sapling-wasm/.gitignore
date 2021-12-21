@@ -1,3 +1,2 @@
 examples/**/*.params
 node_modules
-dist
