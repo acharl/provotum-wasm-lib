@@ -1,6 +1,6 @@
 {
   "name": "provotum-wasm-lib",
-  "author": "Amadeo Charlé",
+  "author": "Papers AG",
   "version": "0.0.7",
   "publishConfig": {
     "access": "public"
